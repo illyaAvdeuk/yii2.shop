@@ -1,11 +1,8 @@
 <?php
-
 namespace app\models;
-
 use \yii\db\ActiveRecord;
 use Yii;
 use yii\behaviors\TimestampBehavior;
-
 /**
  * This is the model class for table "order".
  *
@@ -56,7 +53,6 @@ class Order extends ActiveRecord
             [['name', 'email', 'phone', 'address'], 'string', 'max' => 255],
         ];
     }
-
     /**
      * @inheritdoc
      */

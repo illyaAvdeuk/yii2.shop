@@ -1,15 +1,11 @@
 <?php
-
 namespace app\controllers;
-
 use app\models\Product;
 use app\models\Cart;
 use app\models\OrderItems;
 use app\models\Order;
 use Yii;
-
 	class CartController extends AppController{
-
 		public function actionAdd(){
 	        $id = Yii::$app->request->get('id');
 	        $qty = (int)Yii::$app->request->get('qty');
@@ -26,7 +22,6 @@ use Yii;
 	        $this->layout = false;
 	        return $this->render('cart-modal', compact('session'));
     	}
-
 		public function actionClear(){
 		    $session =Yii::$app->session;
 		    $session->open();
@@ -36,7 +31,6 @@ use Yii;
 		    $this->layout = false;
 		    return $this->render('cart-modal', compact('session'));
 		}
-
     	public function actionDelItem(){
     		$id = Yii::$app->request->get('id');
     		$session =Yii::$app->session;
@@ -46,7 +40,6 @@ use Yii;
 		    $this->layout = false;
 		    return $this->render('cart-modal', compact('session'));
     	}
-
     	public function actionRecount(){
     		$id = Yii::$app->request->get('id');
     		$new_quantity = Yii::$app->request->get('quantity');
@@ -65,7 +58,6 @@ use Yii;
                 if ($order->load(Yii::$app->request->post())) {
                     $order->qty = $session['cart.qty'];
                     $order->sum = $session['cart.sum'];
-
                 }
     		return $this->render('view', compact('session', 'order'));
     	}
