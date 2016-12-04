@@ -51,6 +51,8 @@ use Yii;
 		    return $this->render('cart-modal', compact('session'));
     	}
     	public function actionView(){
+                $success_text = 'Success';
+                $error_text = 'Error';
     		$session =Yii::$app->session;
                 $session->open();
                 $this->setMeta('Cart');
@@ -58,7 +60,44 @@ use Yii;
                 if ($order->load(Yii::$app->request->post())) {
                     $order->qty = $session['cart.qty'];
                     $order->sum = $session['cart.sum'];
+                    $transaction = Yii::$app->db->beginTransaction();           # adding transaction check
+                    if ($order->save()) {
+                        $this->saveOrderItems($session['cart'], $order->id);
+                        Yii::$app->session->setFlash('success',  $success_text);
+                        $session->remove('cart');
+                        $session->remove('cart.qty');
+                        $session->remove('cart.sum');
+                        
+                        return $this->refresh();
+                        $transaction->commit();
+                        return true;
+                } else {
+                    Yii::$app->session->setFlash('error',  $error_text);
+                    $transaction->rollback();
+                    return false;
                 }
+                }
+                
     		return $this->render('view', compact('session', 'order'));
-    	}
+            }
+            protected function saveOrderItems($items, $order_id){
+                foreach($items as $id => $item) :
+                    $order_items = new OrderItems();
+                    $order_items->order_id = $order_id;
+                    $order_items->product_id = $id;
+                    $order_items->name = $item['name'];
+                    $order_items->price = $item['price'];
+                    $order_items->qty_item = $item['qty'];
+                    if ($item['price'] !== 0) {
+                       $order_items->sum_item = $item['qty'] * $item['price'];
+                    } else {
+                        $order_items->sum_item = 0;
+                    }
+                    
+                    $order_items->save();
+
+                endforeach;
+            }
+        
+        
 	}

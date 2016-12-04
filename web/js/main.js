@@ -61,7 +61,7 @@
             url: '/cart/clear',
             type: 'GET',
             success: function(res){
-                if(!res) alert('Ошибка!');
+                if(!res) alert('Error!');
                 showCart(res);
             },
             error: function(){
@@ -69,6 +69,38 @@
             }
         });
     }
+$('.text-danger.del-item').on('click', function(){
+    var id = $(this).data('id');
+    $.ajax({
+        url: '/cart/del-item',
+	data: {id: id},
+	type: 'GET',
+	success: function(res){
+            if(!res) alert('Error!');
+	    location.reload();
+		 },
+		error: function(){
+		    alert('Error!');
+		     }
+	});
+
+});
+
+
+/*clear all cart page*/
+$('.glyphicon-remove').on('click', function(){
+    $.ajax({
+                url: '/cart/clear',
+                type: 'GET',
+                success: function(res){
+                    if(!res) alert('Error!');
+                    location.reload();
+                },
+                error: function(){
+                    alert('Error!');
+                }
+            });
+});
 
 /*cart*/
 $('.add-to-cart').on('click', function (e) {

@@ -3,6 +3,7 @@ namespace app\models;
 use \yii\db\ActiveRecord;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 /**
  * This is the model class for table "order".
  *
@@ -35,7 +36,7 @@ class Order extends ActiveRecord
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
                 ],
                 // если вместо метки времени UNIX используется datetime:
-               # 'value' => new Expression('NOW()'),
+                'value' => new Expression('NOW()'),
             ],
         ];
     }
