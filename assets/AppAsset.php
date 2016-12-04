@@ -22,16 +22,18 @@ class AppAsset extends AssetBundle
         'css/prettyPhoto.css',
         'css/price-range.css',
         'css/animate.css',
-	    'css/main.css',
-	    'css/responsive.css',
+	'css/main.css',
+	'css/responsive.css',
+        'css/megamenu.css',
     ];
     public $js = [
-	'js/jquery.scrollUp.min.js',
-	'js/price-range.js',
+    'js/jquery.scrollUp.min.js',
+    'js/price-range.js',
     'js/jquery.prettyPhoto.js',
     'js/jquery.cookie.js',
     'js/jquery.accordion.js',
     'js/main.js',
+    'js/megamenu.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

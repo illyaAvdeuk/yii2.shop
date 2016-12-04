@@ -8,7 +8,7 @@ use app\assets\AppAsset;
 use app\assets\ltAppAsset;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
-
+use app\components\MegaMenu;
 AppAsset::register($this);
 ltAppAsset::register($this);
 
@@ -108,6 +108,7 @@ ltAppAsset::register($this);
 		</div><!--/header-middle-->
 	
 		<div class="header-bottom"><!--header-bottom-->
+                    <!--
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-9">
@@ -151,6 +152,8 @@ ltAppAsset::register($this);
 					</div>
 				</div>
 			</div>
+                    -->
+                    <?= MegaMenu::widget(); ?>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
 	
